@@ -12,7 +12,7 @@
 ![Stars](https://img.shields.io/github/stars/TelemetryHarbor/thos-m5stack-dial.svg?style=social)
 ![Forks](https://img.shields.io/github/forks/TelemetryHarbor/thos-m5stack-dial.svg?style=social)
 
-THOS v2.1 is a fully-featured open-source firmware for the **M5Stack Dial**.
+THOS is a fully-featured open-source firmware for the **M5Stack Dial**.
 It brings **watch, alarm, timer, and settings apps** in a lightweight, smooth, and responsive UI with **OLED graphics**, rotary encoder input, and tactile feedback.
 
 
