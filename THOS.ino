@@ -1,6 +1,7 @@
 /**
- * THOS v2.1
+ * THOS v2.1 - USB Control Edition
  * Platform: M5Stack Dial
+ * Feature: Sends Ctrl+1 (Start) and Ctrl+2 (Stop) via USB Cable
  */
 
 #include <M5Dial.h>
@@ -8,6 +9,8 @@
 #include <WiFi.h>
 #include <vector>
 #include "time.h"
+#include "USB.h"             // REQUIRED FOR USB
+#include "USBHIDKeyboard.h"  // REQUIRED FOR USB
 
 // --- USER CONFIG ---
 const char* WIFI_SSID = "SSID_NAME";     
@@ -34,6 +37,7 @@ const char* WIFI_PASS = "SSID_PASSWORD";
 
 // --- OBJECTS ---
 M5Canvas canvas(&M5Dial.Display);
+USBHIDKeyboard Keyboard; // Create Keyboard Object
 
 // --- STATE ---
 long encoderAccumulator = 0;
@@ -59,6 +63,14 @@ void wakeUp() {
         isScreensaver = false;
         M5Dial.Display.setBrightness(BRIGHT_ACTIVE);
     }
+}
+
+// *** NEW HELPER: Send Ctrl + Key ***
+void sendCtrlKey(char key) {
+    Keyboard.press(KEY_LEFT_CTRL); // Hold Control
+    Keyboard.press(key);           // Press Number (1 or 2)
+    delay(50);
+    Keyboard.releaseAll();         // Release both
 }
 
 // Helper: True Solid Arc (Gauge Style)
@@ -179,6 +191,10 @@ public:
             if (setTimeSec - elapsed <= 0) {
                 running = false;
                 finished = true;
+                
+                // *** SEND CONTROL + 2 (STOP) ***
+                sendCtrlKey('2'); 
+                
                 wakeUp(); 
             }
         }
@@ -200,12 +216,21 @@ public:
             return; 
         }
         if (!running) {
-            startTime = millis(); running = true; M5Dial.Speaker.tone(4000, 50);
+            startTime = millis(); 
+            running = true; 
+            M5Dial.Speaker.tone(4000, 50);
+            
+            // *** SEND CONTROL + 1 (START) ***
+            sendCtrlKey('1');
+
         } else {
             running = false; 
             long elapsed = (millis() - startTime) / 1000;
             setTimeSec -= elapsed;
             if (setTimeSec < 0) setTimeSec = 0;
+            
+            // Optional: Send Stop command on manual cancel?
+            // sendCtrlKey('2'); 
         }
     }
 
@@ -444,6 +469,10 @@ SettingsApp settingsApp;
 void setup() {
     auto cfg = M5.config();
     M5Dial.begin(cfg, true, true);
+    
+    // *** INITIALIZE USB KEYBOARD ***
+    Keyboard.begin();
+    USB.begin(); 
     
     M5Dial.Display.setRotation(SCREEN_ROTATION);
 
