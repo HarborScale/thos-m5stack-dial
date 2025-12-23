@@ -2,15 +2,15 @@
 
 <!-- OSS Badges -->
 
-![License](https://img.shields.io/github/license/TelemetryHarbor/HFOS-m5stack-dial.svg)
-![Last Commit](https://img.shields.io/github/last-commit/TelemetryHarbor/HFOS-m5stack-dial.svg)
-![Issues](https://img.shields.io/github/issues/TelemetryHarbor/HFOS-m5stack-dial.svg)
-![Pull Requests](https://img.shields.io/github/issues-pr/TelemetryHarbor/HFOS-m5stack-dial.svg)
-![Repo Size](https://img.shields.io/github/repo-size/TelemetryHarbor/HFOS-m5stack-dial.svg)
-![Contributors](https://img.shields.io/github/contributors/TelemetryHarbor/HFOS-m5stack-dial.svg)
+![License](https://img.shields.io/github/license/HarborScale/HFOS-m5stack-dial.svg)
+![Last Commit](https://img.shields.io/github/last-commit/HarborScale/HFOS-m5stack-dial.svg)
+![Issues](https://img.shields.io/github/issues/HarborScale/HFOS-m5stack-dial.svg)
+![Pull Requests](https://img.shields.io/github/issues-pr/HarborScale/HFOS-m5stack-dial.svg)
+![Repo Size](https://img.shields.io/github/repo-size/HarborScale/HFOS-m5stack-dial.svg)
+![Contributors](https://img.shields.io/github/contributors/HarborScale/HFOS-m5stack-dial.svg)
 ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
-![Stars](https://img.shields.io/github/stars/TelemetryHarbor/HFOS-m5stack-dial.svg?style=social)
-![Forks](https://img.shields.io/github/forks/TelemetryHarbor/HFOS-m5stack-dial.svg?style=social)
+![Stars](https://img.shields.io/github/stars/HarborScale/HFOS-m5stack-dial.svg?style=social)
+![Forks](https://img.shields.io/github/forks/HarborScale/HFOS-m5stack-dial.svg?style=social)
 
 HFOS is a fully-featured open-source firmware for the **M5Stack Dial**.
 It brings **watch, alarm, timer, and settings apps** in a lightweight, smooth, and responsive UI with **OLED graphics**, rotary encoder input, and tactile feedback.
