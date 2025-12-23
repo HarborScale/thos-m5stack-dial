@@ -249,6 +249,27 @@ public:
         if (setTimeSec > 3599) setTimeSec = 3599; 
     }
 
+    void onRotary(int delta) override {
+        if (running) return;
+    
+        int speed = abs(delta);
+        int inc;
+    
+        if (speed >= 4) {
+            inc = 600;      // 5 minutes
+        } else if (speed >= 2) {
+            inc = 60;       // 1 minute
+        } else {
+            inc = 10;       // 10 seconds
+        }
+    
+        setTimeSec += delta * inc;
+    
+        // Clamp
+        if (setTimeSec < 10) setTimeSec = 10;
+        if (setTimeSec > 3599) setTimeSec = 3599;
+    }
+
     void onTouch(int x, int y) override {
         if (finished) { 
             finished = false; 
