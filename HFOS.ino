@@ -1,5 +1,5 @@
 /**
- * THOS v2.1 - USB Control Edition
+ * HFOS v2.1 - USB Control Edition
  * Platform: M5Stack Dial
  * Feature: Sends Ctrl+1 (Start) and Ctrl+2 (Stop) via USB Cable
  */
