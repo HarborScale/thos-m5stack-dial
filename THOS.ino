@@ -230,7 +230,7 @@ public:
             if (setTimeSec < 0) setTimeSec = 0;
             
             // Optional: Send Stop command on manual cancel?
-            // sendCtrlKey('2'); 
+            sendCtrlKey('2'); 
         }
     }
 
