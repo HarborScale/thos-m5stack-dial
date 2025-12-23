@@ -11,10 +11,14 @@
 #include "time.h"
 #include "USB.h"             // REQUIRED FOR USB
 #include "USBHIDKeyboard.h"  // REQUIRED FOR USB
+#include <HTTPClient.h>
 
 // --- USER CONFIG ---
 const char* WIFI_SSID = "SSID_NAME";     
 const char* WIFI_PASS = "SSID_PASSWORD"; 
+const char* HARBOR_API_KEY = "your_api_key_here";
+const char* HARBOR_API_ENDPOINT = "https://harborscale.com/api/v2/ingest/YOUR_HARBOR_ID";
+const char* HARBOR_SHIP_ID = "Productivity_Dial";
 #define TIME_ZONE_OFFSET_HRS  +3  // UTC OFFSET
 
 // --- SYSTEM CONFIG ---
@@ -71,6 +75,38 @@ void sendCtrlKey(char key) {
     Keyboard.press(key);           // Press Number (1 or 2)
     delay(50);
     Keyboard.releaseAll();         // Release both
+}
+
+void sendToHarborScale(const char* event, float value) {
+    if (WiFi.status() != WL_CONNECTED) {
+        WiFi.begin(WIFI_SSID, WIFI_PASS);
+        int attempts = 0;
+        while (WiFi.status() != WL_CONNECTED && attempts < 10) {
+            delay(500);
+            attempts++;
+        }
+        if (WiFi.status() != WL_CONNECTED) return;
+    }
+    
+    HTTPClient http;
+    http.begin(HARBOR_API_ENDPOINT);
+    http.addHeader("Content-Type", "application/json");
+    http.addHeader("X-API-Key", HARBOR_API_KEY);
+    
+    auto t = M5Dial.Rtc.getTime();
+    auto d = M5Dial.Rtc.getDate();
+    char timestamp[30];
+    sprintf(timestamp, "%04d-%02d-%02dT%02d:%02d:%02d.000Z", 
+            d.year, d.month, d.date, t.hours, t.minutes, t.seconds);
+    
+    String payload = "{\"time\":\"" + String(timestamp) + 
+                     "\",\"ship_id\":\"" + String(HARBOR_SHIP_ID) + "\"," +
+                     "\"cargo_id\":\"" + String(event) + "\"," +
+                     "\"value\":" + String(value) + "}";
+    
+    http.POST(payload);
+    http.end();
+    WiFi.disconnect(true);
 }
 
 // Helper: True Solid Arc (Gauge Style)
@@ -178,6 +214,7 @@ class TimerApp : public App {
     bool running = false;
     bool finished = false;
     unsigned long lastTone = 0;
+    unsigned long lastHeartbeat = 0;
 public:
     String getName() override { return "TIMER"; }
     bool isRunning() override { return running || finished; }
@@ -186,16 +223,20 @@ public:
     void setup() override { finished = false; }
     
     void background() override {
-        if (running) {
-            long elapsed = (millis() - startTime) / 1000;
-            if (setTimeSec - elapsed <= 0) {
-                running = false;
-                finished = true;
-                
-                // *** SEND CONTROL + 2 (STOP) ***
-                sendCtrlKey('2'); 
-                
-                wakeUp(); 
+    if (running) {
+        // Heartbeat every 60 seconds
+        if (millis() - lastHeartbeat > 60000) {
+            sendToHarborScale("timer_status", 1);
+            lastHeartbeat = millis();
+        }
+        
+        long elapsed = (millis() - startTime) / 1000;
+        if (setTimeSec - elapsed <= 0) {
+            running = false;
+            finished = true;
+            sendCtrlKey('2');
+            sendToHarborScale("timer_status", 0);
+            wakeUp(); 
             }
         }
     }
@@ -222,6 +263,8 @@ public:
             
             // *** SEND CONTROL + 1 (START) ***
             sendCtrlKey('1');
+            sendToHarborScale("timer_status", 1);  // ADD THIS
+            lastHeartbeat = millis();  // ADD THIS
 
         } else {
             running = false; 
@@ -231,6 +274,7 @@ public:
             
             // Optional: Send Stop command on manual cancel?
             sendCtrlKey('2'); 
+            sendToHarborScale("timer_status", 0);  // ADD THIS
         }
     }
 
