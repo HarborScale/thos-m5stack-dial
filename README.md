@@ -1,18 +1,18 @@
-# THOS v2.1 – M5Stack Dial Firmware
+# HFOS v2.1 – M5Stack Dial Firmware
 
 <!-- OSS Badges -->
 
-![License](https://img.shields.io/github/license/TelemetryHarbor/thos-m5stack-dial.svg)
-![Last Commit](https://img.shields.io/github/last-commit/TelemetryHarbor/thos-m5stack-dial.svg)
-![Issues](https://img.shields.io/github/issues/TelemetryHarbor/thos-m5stack-dial.svg)
-![Pull Requests](https://img.shields.io/github/issues-pr/TelemetryHarbor/thos-m5stack-dial.svg)
-![Repo Size](https://img.shields.io/github/repo-size/TelemetryHarbor/thos-m5stack-dial.svg)
-![Contributors](https://img.shields.io/github/contributors/TelemetryHarbor/thos-m5stack-dial.svg)
+![License](https://img.shields.io/github/license/TelemetryHarbor/HFOS-m5stack-dial.svg)
+![Last Commit](https://img.shields.io/github/last-commit/TelemetryHarbor/HFOS-m5stack-dial.svg)
+![Issues](https://img.shields.io/github/issues/TelemetryHarbor/HFOS-m5stack-dial.svg)
+![Pull Requests](https://img.shields.io/github/issues-pr/TelemetryHarbor/HFOS-m5stack-dial.svg)
+![Repo Size](https://img.shields.io/github/repo-size/TelemetryHarbor/HFOS-m5stack-dial.svg)
+![Contributors](https://img.shields.io/github/contributors/TelemetryHarbor/HFOS-m5stack-dial.svg)
 ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
-![Stars](https://img.shields.io/github/stars/TelemetryHarbor/thos-m5stack-dial.svg?style=social)
-![Forks](https://img.shields.io/github/forks/TelemetryHarbor/thos-m5stack-dial.svg?style=social)
+![Stars](https://img.shields.io/github/stars/TelemetryHarbor/HFOS-m5stack-dial.svg?style=social)
+![Forks](https://img.shields.io/github/forks/TelemetryHarbor/HFOS-m5stack-dial.svg?style=social)
 
-THOS is a fully-featured open-source firmware for the **M5Stack Dial**.
+HFOS is a fully-featured open-source firmware for the **M5Stack Dial**.
 It brings **watch, alarm, timer, and settings apps** in a lightweight, smooth, and responsive UI with **OLED graphics**, rotary encoder input, and tactile feedback.
 
 **NEW:** Optional **productivity tracking dashboard** via HarborScale integration – track your focus sessions in real-time with beautiful Grafana visualizations! 📊
@@ -40,8 +40,8 @@ It brings **watch, alarm, timer, and settings apps** in a lightweight, smooth, a
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/harborscale/thos-m5stack-dial.git
-cd thos-m5stack-dial
+git clone https://github.com/harborscale/HFOS-m5stack-dial.git
+cd HFOS-m5stack-dial
 ```
 
 2. Open in **Arduino IDE** or **PlatformIO**.
@@ -70,7 +70,7 @@ const char* HARBOR_SHIP_ID = "Productivity_Dial";
 
 ## 📊 Productivity Dashboard (Optional)
 
-THOS can automatically track your timer sessions and visualize them in a beautiful dashboard using [HarborScale](https://harborscale.com) and Grafana.
+HFOS can automatically track your timer sessions and visualize them in a beautiful dashboard using [HarborScale](https://harborscale.com) and Grafana.
 
 ### How It Works
 
@@ -83,14 +83,14 @@ THOS can automatically track your timer sessions and visualize them in a beautif
 1. **Create a free HarborScale account** at [harborscale.com](https://harborscale.com)
 2. **Create a General Harbor** and get your Harbor ID
 3. **Generate an API Key** from your dashboard
-4. **Configure THOS** with your credentials (see Quick Start step 5)
+4. **Configure HFOS** with your credentials (see Quick Start step 5)
 5. **View a Grafana dashboard** to visualize:
    * Total productive time per day
    * Session duration trends
    * Focus time heatmaps
    * Weekly/monthly productivity stats
 
-**Want to skip the setup?** Just leave the `HARBOR_*` variables empty and THOS works perfectly without tracking! 🎯
+**Want to skip the setup?** Just leave the `HARBOR_*` variables empty and HFOS works perfectly without tracking! 🎯
 
 
 
@@ -156,9 +156,9 @@ THOS can automatically track your timer sessions and visualize them in a beautif
 
 
 
-## 🛠️ Extending THOS
+## 🛠️ Extending HFOS
 
-THOS uses an `App` interface for modularity.
+HFOS uses an `App` interface for modularity.
 Add your own app:
 ```cpp
 class MyApp : public App {
@@ -204,7 +204,7 @@ We welcome issues, pull requests, and feature ideas!
 
 * Open a GitHub issue for bugs or enhancements
 * Fork the repo and submit PRs
-* Join discussions and improve THOS together
+* Join discussions and improve HFOS together
 
 
 
